@@ -9,7 +9,11 @@ fi
 #pybind target
 if [[ $1 == 'python' ]]
 then
+    #compile potential.o
     g++ -g -Wall -Wextra -Werror -c potential.cpp -o potential.o -std=c++11
 
-    g++ -Wall -shared -fPIC -std=c++11 $(python -m pybind11 --includes) -undefined dynamic_lookup binding.cpp potential.o -o potential.so
+    #whole lot of flag magic to get pybind11 to compile a .so for python
+    includes=`python -m pybind11 --includes`
+    g++ -Wall -shared -fPIC -std=c++11 $includes -undefined dynamic_lookup \
+        binding.cpp potential.o -o potential.so
 fi
