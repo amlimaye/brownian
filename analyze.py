@@ -5,15 +5,13 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import matplotlib.colors as colors
 import sys
+import potential
 
 def two_well(x,y):
     return x**4 - x**2 + y**2
 
 def one_well(x,y):
     return x**2 + y**2
-
-def asymmetric_one_well(x, y, x_curv=1.0, y_curv=0.10):
-    return x_curv*x**2 + y_curv*y**2
 
 def plot_positions(positions, potfunc, outpng, U_mat = None, weights = None):
     fig = plt.figure()
@@ -49,7 +47,9 @@ def plot_positions(positions, potfunc, outpng, U_mat = None, weights = None):
     xlim = ax.get_xlim()
     ylim = ax.get_ylim()
     grid_x,grid_y = np.meshgrid(np.linspace(xlim[0],xlim[1],100),np.linspace(ylim[0],ylim[1],100))
-    pot = potfunc(grid_x,grid_y)
+
+    potfunc_v = np.vectorize(potfunc.energy)
+    pot = potfunc_v(grid_x,grid_y)
     ax_contour = ax.contour(grid_x,grid_y,pot,100,zorder=1)
     fig.colorbar(ax_contour)
 
@@ -63,7 +63,7 @@ def stride_positions(positions, stride):
     return positions[::stride, :]
 
 def do_plot(args):
-    potfunc = asymmetric_one_well
+    potfunc = potential.AsymmetricOneWell(1.0, 0.10)
 
     traj_path, stride, outpng = args
     stride = int(stride)
@@ -109,7 +109,7 @@ def do_pca(args):
     #weights when plotted should be ratio of eigenvalues
     weights = np.diag(D)/np.sum(np.diag(D))
 
-    potfunc = asymmetric_one_well
+    potfunc = potential.AsymmetricOneWell(1.0, 0.10)
     plot_positions(positions, potfunc, outpng, U_mat=U, weights=weights)
 
 def dispatcher(sargs):
