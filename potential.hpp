@@ -13,7 +13,6 @@ public:
 	real_t energy (real_vec_t position); 
 	real_vec_t gradient (real_vec_t position);
 
-private:
 	real_t x_curvature;
 	real_t y_curvature;
 };
@@ -24,7 +23,6 @@ public:
 	real_t energy (real_vec_t position);
 	real_vec_t gradient (real_vec_t position);
 
-private:
 	real_t curvature;
 };
 
