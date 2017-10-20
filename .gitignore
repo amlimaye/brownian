@@ -1,4 +1,5 @@
 *.o
 *.so
 *.txt
+*.png
 main
