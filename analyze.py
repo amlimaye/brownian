@@ -1,17 +1,12 @@
 from __future__ import print_function
-import numpy as np
-import json
-import matplotlib.pyplot as plt
-from matplotlib import cm
-import matplotlib.colors as colors
 import sys
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+from matplotlib import cm
+
+#import pybind11 c++ extension
 import potential
-
-def two_well(x,y):
-    return x**4 - x**2 + y**2
-
-def one_well(x,y):
-    return x**2 + y**2
 
 def plot_positions(positions, potfunc, outpng, U_mat = None, weights = None):
     fig = plt.figure()
