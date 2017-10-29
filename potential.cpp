@@ -45,7 +45,7 @@ real_t TwoWell::energy (real_vec_t position) {
 	auto x4 = x2*x2;
 	auto y2 = y*y;
 
-	auto energy = x4 - x2 + y2;
+	auto energy = x4 - x2 + y2 + 0.25;
 	return energy;
 };
 
