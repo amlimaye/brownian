@@ -111,10 +111,26 @@ def do_ehist(args):
     etraj_path, outpng = args
     energy = np.loadtxt(etraj_path, delimiter=' ') 
 
+    mean = np.mean(energy)
+    histo, bins = np.histogram(energy, bins='auto', normed=True)
+    bins = bins[1:]
+    loghisto = np.log(histo)
+    loghisto -= np.max(loghisto)
+
     plt.figure()
-    plt.hist(energy, bins='auto')
-    plt.ylabel(r'$P(E)$')
-    plt.xlabel(r'$E$')
+    f, axlist = plt.subplots(2, 1)
+    ax1, ax2 = axlist
+
+    ax1.hist(energy, bins='auto', normed=True)
+    ax1.axvline(x=mean, color='k', linestyle='--')
+    ax1.set_ylabel(r'$P(E)$')
+    ax1.set_xlabel(r'$E [kT]$')
+
+    ax2.plot(bins, loghisto, 'ko-')
+    ax2.set_ylabel(r'$\log P(E)$')
+    ax2.set_xlabel(r'$E [kT]$')
+
+    plt.tight_layout()
     plt.savefig(outpng)
 
 def dispatcher(sargs):
