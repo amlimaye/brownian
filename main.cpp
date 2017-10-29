@@ -47,10 +47,11 @@ int main(int argc, char* argv[]) {
 	const real_t beta = 1.0/kt;
 	const real_t mass = 1.00;
 	const real_t dt = 0.001;
-	const real_t x_curvature = 1.0;
-	const real_t y_curvature = 0.1;
+	// const real_t x_curvature = 1.0;
+	// const real_t y_curvature = 0.1;
 
-	AsymmetricOneWell potfunc(x_curvature, y_curvature);
+	// AsymmetricOneWell potfunc(x_curvature, y_curvature);
+	TwoWell potfunc;
 	Langevin integrator(seed,dt,beta,d_coeff);
 	PositionTrajectory p_traj;
 	EnergyTrajectory e_traj;
