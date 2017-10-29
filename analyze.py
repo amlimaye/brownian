@@ -35,7 +35,6 @@ def plot_positions(positions, potfunc, outpng, U_mat = None, weights = None):
                 scale_factor = np.sqrt(0.1*fig_corner_norm)
 
             vector *= scale_factor
-            print(vector)
             ax.arrow(0, 0, vector[0], vector[1], zorder=3)
 
     #also plot the doublewell potential
@@ -58,7 +57,7 @@ def stride_positions(positions, stride):
     return positions[::stride, :]
 
 def do_plot(args):
-    potfunc = potential.AsymmetricOneWell(1.0, 0.10)
+    potfunc = potential.TwoWell()
 
     traj_path, stride, outpng = args
     stride = int(stride)
@@ -87,7 +86,7 @@ def do_pca(args):
     #load up the trajectory
     traj_path, stride, outpng = args
     stride = int(stride)
-    positions = np.loadtxt(traj_path,delimiter=' ')
+    positions = np.loadtxt(traj_path, delimiter=' ')
     positions = stride_positions(positions, stride)
 
     #compute the _scaled_ data matrix C
@@ -104,14 +103,25 @@ def do_pca(args):
     #weights when plotted should be ratio of eigenvalues
     weights = np.diag(D)/np.sum(np.diag(D))
 
-    potfunc = potential.AsymmetricOneWell(1.0, 0.10)
+    # potfunc = potential.AsymmetricOneWell(1.0, 0.1)
+    potfunc = potential.TwoWell()
     plot_positions(positions, potfunc, outpng, U_mat=U, weights=weights)
+
+def do_ehist(args):
+    etraj_path, outpng = args
+    energy = np.loadtxt(etraj_path, delimiter=' ') 
+
+    plt.figure()
+    plt.hist(energy, bins='auto')
+    plt.ylabel(r'$P(E)$')
+    plt.xlabel(r'$E$')
+    plt.savefig(outpng)
 
 def dispatcher(sargs):
     dispatch_module = sargs[0]
     module_args = sargs[1:]
 
-    AV_MODULES = ['plot', 'pca']
+    AV_MODULES = ['plot', 'pca', 'ehist']
 
     assert dispatch_module in AV_MODULES 
 
@@ -119,6 +129,8 @@ def dispatcher(sargs):
         do_plot(module_args)
     elif dispatch_module == 'pca':
         do_pca(module_args)
+    elif dispatch_module == 'ehist':
+        do_ehist(module_args)
 
 if __name__ == "__main__":
     dispatcher(sys.argv[1:])
