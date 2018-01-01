@@ -21,3 +21,6 @@ py:
 	g++ -pipe -O3 -Wall -Wextra -Werror -c $(SRC_DIR)/potential.cpp -o $(BUILD_DIR)/potential.o -std=c++11
 	g++ -pipe -Wall -O3 -shared -fPIC -std=c++11 $(includes) -undefined dynamic_lookup \
         $(SRC_DIR)/binding.cpp $(BUILD_DIR)/potential.o -o $(BUILD_DIR)/potential.so
+
+clean:
+	rm -f main.o potential.o main potential.so
