@@ -1,6 +1,5 @@
 *.o
 *.so
-*.txt
 *.png
 *.swp
 main
