@@ -1,4 +1,4 @@
-#include "potential.hpp"
+#include "potential.hxx"
 
 AsymmetricOneWell::AsymmetricOneWell(real_t a_x_curvature, real_t a_y_curvature) {
 	x_curvature = a_x_curvature;

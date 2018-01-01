@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "types.hxx"
 
 //ABC for potential classes
 class Potential {

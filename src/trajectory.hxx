@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "types.hxx"
 #include <iomanip>
 
 class PositionTrajectory {

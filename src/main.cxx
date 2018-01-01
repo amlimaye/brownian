@@ -4,10 +4,10 @@
 #include <fstream>
 #include <tuple>
 #include <json/json.h>
-#include "types.hpp"
-#include "langevin.hpp"
-#include "potential.hpp"
-#include "trajectory.hpp"
+#include "types.hxx"
+#include "langevin.hxx"
+#include "potential.hxx"
+#include "trajectory.hxx"
 
 std::ostream& operator<<(std::ostream& stream, const real_vec_t vector) {
 	stream << "(" << vector[0] << "," << vector[1] << ")";
